@@ -12,7 +12,7 @@ const Header = () => {
       <div className="container mx-auto flex items-center justify-between h-16 md:h-18 px-4">
         <a href="/" className="flex items-center gap-2">
           <span className="font-heading font-extrabold text-xl tracking-tight text-primary">
-            sample_KA01
+            shikshavision.com
           </span>
         </a>
 

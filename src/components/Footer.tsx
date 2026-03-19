@@ -14,7 +14,7 @@ const Footer = () => {
           {/* Brand + Contact */}
           <div className="md:col-span-2">
             <span className="font-heading font-extrabold text-xl mb-4 block">
-              sample_KA01
+              shikshavision.com
             </span>
             <p className="text-primary-foreground/60 text-sm leading-relaxed mb-6">
               India's trusted platform to compare and enroll in UGC-approved online universities.
@@ -84,7 +84,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-xs text-primary-foreground/40">
-              © 2026 sample_KA01. All rights reserved.
+              © 2026 shikshavision.com. All rights reserved.
             </p>
           </div>
         </div>

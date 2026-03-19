@@ -12,7 +12,7 @@ const WhyChoose = () => {
     <section className="section-padding section-alt">
       <div className="container mx-auto px-4">
         <div className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">Why Choose sample_KA01</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">Why Choose shikshavision.com</h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
             We simplify your journey to the right online degree.
           </p>

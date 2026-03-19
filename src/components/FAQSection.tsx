@@ -6,11 +6,11 @@ import {
 } from "@/components/ui/accordion";
 
 const faqs = [
-  { q: "Does sample_KA01 take any charges?", a: "No, sample_KA01's counselling services are completely free for students. We earn from university partnerships, so you never pay extra." },
-  { q: "How is sample_KA01 different from others?", a: "We offer unbiased comparisons, verified university data, dedicated counsellors, and end-to-end admission support — all in one platform." },
-  { q: "Why take admission through sample_KA01?", a: "You get the best prices guaranteed, expert guidance, easy comparison tools, and post-admission support that other platforms don't provide." },
-  { q: "How is sample_KA01 an independent platform?", a: "We are not owned by any university. Our recommendations are data-driven and unbiased, ensuring you get genuine advice." },
-  { q: "What is sample_KA01?", a: "sample_KA01 is India's trusted ed-tech platform that helps students compare and enroll in UGC-approved online universities with expert counselling support." },
+  { q: "Does shikshavision.com take any charges?", a: "No, shikshavision.com's counselling services are completely free for students. We earn from university partnerships, so you never pay extra." },
+  { q: "How is shikshavision.com different from others?", a: "We offer unbiased comparisons, verified university data, dedicated counsellors, and end-to-end admission support — all in one platform." },
+  { q: "Why take admission through shikshavision.com?", a: "You get the best prices guaranteed, expert guidance, easy comparison tools, and post-admission support that other platforms don't provide." },
+  { q: "How is shikshavision.com an independent platform?", a: "We are not owned by any university. Our recommendations are data-driven and unbiased, ensuring you get genuine advice." },
+  { q: "What is shikshavision.com?", a: "shikshavision.com is India's trusted ed-tech platform that helps students compare and enroll in UGC-approved online universities with expert counselling support." },
 ];
 
 const FAQSection = () => {

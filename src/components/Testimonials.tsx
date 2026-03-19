@@ -1,8 +1,8 @@
 import { Star } from "lucide-react";
 
 const testimonials = [
-  { name: "Priya Sharma", program: "MBA, Manipal University", rating: 5, text: "sample_KA01 made my decision so easy. The comparison tool helped me pick the right university, and my counsellor was amazing throughout." },
-  { name: "Rahul Verma", program: "MCA, SRM University", rating: 5, text: "I was confused between 3 universities. The expert counsellor at sample_KA01 helped me understand the differences and I'm now happily enrolled." },
+  { name: "Priya Sharma", program: "MBA, Manipal University", rating: 5, text: "shikshavision.com made my decision so easy. The comparison tool helped me pick the right university, and my counsellor was amazing throughout." },
+  { name: "Rahul Verma", program: "MCA, SRM University", rating: 5, text: "I was confused between 3 universities. The expert counsellor at shikshavision.com helped me understand the differences and I'm now happily enrolled." },
   { name: "Ananya Patel", program: "BBA, Amity University", rating: 4, text: "The entire process was seamless. From comparison to enrollment, everything was handled professionally. Highly recommend!" },
 ];
 

@@ -79,7 +79,7 @@ const PlatformServices = () => {
                 All Platform Services
               </DialogTitle>
               <DialogDescription className="text-muted-foreground">
-                Explore the complete range of services sample_KA01 offers.
+                Explore the complete range of services shikshavision.com offers.
               </DialogDescription>
             </DialogHeader>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4">

@@ -12,7 +12,7 @@ const CTASection = () => {
           Start Your Online Degree Journey Today
         </h2>
         <p className="text-primary-foreground/70 mb-10 max-w-lg mx-auto text-lg">
-          Join over 1 lakh students who found their perfect university through sample_KA01.
+          Join over 1 lakh students who found their perfect university through shikshavision.com.
         </p>
         <Button variant="hero-primary" size="lg" className="px-10 py-6 rounded-xl text-base">
           Get Free Counselling <ArrowRight size={18} className="ml-1" />
