@@ -23,15 +23,19 @@ const Footer = () => {
             <div className="space-y-3 mb-6">
               <div className="flex items-center gap-3 text-sm text-primary-foreground/50">
                 <Phone size={14} className="text-accent shrink-0" />
-                <span>+91 98765 43210</span>
+                <span>+91 92569 25671</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-primary-foreground/50">
                 <Mail size={14} className="text-accent shrink-0" />
-                <span>contact@sampleka01.com</span>
+                <span>info@shikshavision.com</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-primary-foreground/50">
                 <MapPin size={14} className="text-accent shrink-0" />
-                <span>New Delhi, India</span>
+               <p className="text-sm text-muted-foreground">
+                 M-47, Mehrauli-Gurgaon Rd, Block M,<br />
+                 Old DLF Colony, Sector 14,<br />
+                 Gurugram, Haryana 122007
+                 </p>
               </div>
             </div>
 
