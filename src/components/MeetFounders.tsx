@@ -1,88 +1,71 @@
-import founderImg from "@/assets/narender-lamba.png";
+// src/components/FoundersSection.tsx
+import React from 'react';
 
-const MeetFounders = () => {
+const FoundersSection = () => {
+  const founders = [
+    {
+      name: "Narender Lamba",
+      role: "Founder",
+      image: "/narender.jpeg",
+      bio: "15+ years in education. Visionary behind SikshaVision's student-first transparency."
+    },
+    {
+      name: "Dr. Kuldeep Yadav",
+      role: "Co-Founder",
+      image: "/kuldeep.jpeg",
+      bio: "Legal scholar & PhD. Dedicated to innovation and academic excellence in online learning."
+    },
+    {
+      name: "Jatin Bangar",
+      role: "Co-Founder",
+      image: "/jatin.jpeg",
+      bio: "Educationist & Psychologist. Focused on helping students find clarity and direction."
+    }
+  ];
+
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-16 bg-slate-50 border-t border-slate-200">
       <div className="container mx-auto px-4">
-
-        {/* Heading */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">
-            Meet Our Leadership
+        {/* Compact Heading */}
+        <div className="text-center mb-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#1E293B] mb-2">
+            Guided by Experts
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            The visionaries behind <b>shikshavision.com</b>, committed to simplifying online education and guiding students toward the right career paths.
+          <p className="text-slate-600 text-sm md:text-base max-w-2xl mx-auto">
+            Our leadership brings over 40 years of combined experience in law, psychology, and education to help you build your future.
           </p>
         </div>
 
-        {/* Founder */}
-        <div
-          className="max-w-4xl mx-auto bg-card rounded-2xl overflow-hidden flex flex-col md:flex-row mb-12 animate-fade-in-up"
-          style={{ boxShadow: "var(--shadow-card)" }}
-        >
-          <div className="md:w-2/5 flex-shrink-0">
-            <img
-              src={founderImg}
-              alt="Narender Lamba - Founder of shikshavision.com"
-              className="w-full h-full object-cover min-h-[320px]"
-            />
-          </div>
-
-          <div className="p-8 md:p-10 flex flex-col justify-center">
-            <h3 className="font-heading font-bold text-xl md:text-2xl text-foreground mb-1">
-              Narender Lamba
-            </h3>
-            <span className="text-sm font-semibold text-accent mb-5">Founder</span>
-
-            <div className="space-y-4 text-muted-foreground text-sm md:text-base leading-relaxed">
-              <p>
-                With over 15+ years of experience in the education industry, Narender has helped thousands of students make informed academic and career decisions.
-              </p>
-              <p>
-                He has collaborated with leading universities and understands the real challenges students face while choosing the right course and institution.
-              </p>
-              <p>
-                His vision for <b>shikshavision.com</b> is to build a transparent, student-first platform that simplifies online education and empowers learners across India.
+        {/* Founders Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {founders.map((founder, index) => (
+            <div key={index} className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+              <div className="w-24 h-24 mb-4 overflow-hidden rounded-full border-2 border-[#1E293B]/10">
+                <img 
+                  src={founder.image} 
+                  alt={founder.name} 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-lg font-bold text-[#1E293B]">{founder.name}</h3>
+              <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-3">
+                {founder.role}
+              </span>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                {founder.bio}
               </p>
             </div>
-          </div>
+          ))}
         </div>
-
-        {/* Co-Founders */}
-        <div className="max-w-4xl mx-auto">
-          <h3 className="text-2xl font-bold text-foreground mb-6 text-center">
-            Co-Founders
-          </h3>
-
-          <div className="grid md:grid-cols-2 gap-6">
-
-            {/* Jatin */}
-            <div className="bg-card p-6 rounded-xl shadow">
-              <h4 className="font-semibold text-lg text-foreground">Jatin</h4>
-              <span className="text-sm text-accent font-medium">Co-Founder</span>
-              <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
-                Jatin brings strong expertise in student counseling and digital growth strategies. 
-                He has worked closely with aspiring students to guide them toward the right academic opportunities, 
-                ensuring they make confident career decisions.
-              </p>
-            </div>
-
-            {/* Kuldeep */}
-            <div className="bg-card p-6 rounded-xl shadow">
-              <h4 className="font-semibold text-lg text-foreground">Kuldeep</h4>
-              <span className="text-sm text-accent font-medium">Co-Founder</span>
-              <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
-                Kuldeep specializes in operations and partnerships, building strong relationships with universities 
-                and institutions. His focus is on creating a seamless experience for students exploring online education.
-              </p>
-            </div>
-
-          </div>
+        
+        <div className="mt-8 text-center">
+          <p className="text-[#1E293B] font-medium italic text-sm">
+            “Your journey is our journey. Let’s build your future, together.”
+          </p>
         </div>
-
       </div>
     </section>
   );
 };
 
-export default MeetFounders;
+export default FoundersSection;

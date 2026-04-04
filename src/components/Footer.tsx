@@ -13,9 +13,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
           {/* Brand + Contact */}
           <div className="md:col-span-2">
-            <span className="font-heading font-extrabold text-xl mb-4 block">
-              shikshavision.com
-            </span>
+            <img 
+  src="/sv_logo.svg"
+  alt="ShikshaVision"
+  className="h-22 md:h-24 mb-4 w-auto"
+/>
             <p className="text-primary-foreground/60 text-sm leading-relaxed mb-6">
               India's trusted platform to compare and enroll in UGC-approved online universities.
             </p>
