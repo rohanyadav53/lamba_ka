@@ -5,8 +5,12 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const config = require('./config/env');
+const connectDB = require('./config/db');
 
 const app = express();
+
+// Initialize Database connection
+connectDB();
 
 // ── Security ─────────────────────────────────────────────────────────────────
 app.use(helmet());
@@ -43,13 +47,15 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // ── Routes ───────────────────────────────────────────────────────────────────
-// IMPORTANT: Download routes must come before lead routes (more specific first)
+// IMPORTANT: Export & download routes must come before lead routes (more specific first)
+const exportRoutes = require('./routes/exportRoutes');
 const downloadRoutes = require('./routes/downloadRoutes');
 const leadRoutes = require('./routes/leadRoutes');
 const otpRoutes = require('./routes/otpRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 
-app.use('/api', downloadRoutes);   // GET /api/leads/download
+app.use('/api', exportRoutes);     // GET /api/leads/export (public, Fetch API)
+app.use('/api', downloadRoutes);   // GET /api/leads/download (admin, json2csv)
 app.use('/api', leadRoutes);       // POST /api/lead, GET /api/leads, PUT /api/lead/:id
 app.use('/api', otpRoutes);        // POST /api/otp/send, /api/otp/verify
 app.use('/api', adminRoutes);      // POST /api/admin/login, /api/admin/reset-password

@@ -1,7 +1,5 @@
 // server/controllers/leadController.js
-// Lead management controller — delegates to airtableService
-
-const airtableService = require('../services/airtableService');
+const Lead = require('../models/Lead');
 const analyticsService = require('../services/analyticsService');
 const config = require('../config/env');
 
@@ -13,7 +11,9 @@ async function createLead(req, res) {
     const { name, email, phone, university, course, source } = req.body;
 
     // Check for duplicate within 24 hours
-    const recentLeads = await airtableService.findRecentLeadByPhone(phone);
+    const cutoff = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    const recentLeads = await Lead.find({ phone, createdAt: { $gte: cutoff } });
+    
     if (recentLeads.length > 0) {
       return res.status(409).json({
         success: false,
@@ -22,22 +22,23 @@ async function createLead(req, res) {
     }
 
     // Create the lead
-    const lead = await airtableService.createLead({
+    const lead = new Lead({
       name,
       email,
       phone,
       university,
       course,
-      source: source || 'Popup',
-      status: 'New',
-      createdAt: new Date().toISOString(),
+      source: source || 'Website',
+      status: 'New'
     });
+    
+    await lead.save();
 
     // Track analytics event
     analyticsService.trackEvent('lead_submit', {
       university,
       course,
-      source: source || 'Popup',
+      source: source || 'Website',
       phone: phone.slice(-4), // Only last 4 digits for privacy
     });
 
@@ -54,7 +55,7 @@ async function createLead(req, res) {
       success: true,
       message: 'Thank you! Our counselor will contact you shortly.',
       data: {
-        id: lead.id,
+        id: lead._id,
         whatsappUrl,
       },
     });
@@ -74,18 +75,40 @@ async function getLeads(req, res) {
   try {
     const { university, course, status, search, page = 1, limit = 20 } = req.query;
 
-    const result = await airtableService.getAllLeads({
-      university,
-      course,
-      status,
-      search: search ? search.toLowerCase() : undefined,
-      page: parseInt(page, 10),
-      limit: parseInt(limit, 10),
-    });
+    const query = {};
+    if (university) query.university = university;
+    if (course) query.course = course;
+    if (status) query.status = status;
+    if (search) {
+      query.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { email: { $regex: search, $options: 'i' } },
+        { phone: { $regex: search, $options: 'i' } }
+      ];
+    }
+
+    const totalCount = await Lead.countDocuments(query);
+    const leads = await Lead.find(query)
+      .sort({ createdAt: -1 })
+      .skip((parseInt(page) - 1) * parseInt(limit))
+      .limit(parseInt(limit))
+      .lean();
+
+    // Format for frontend (rename _id to id)
+    const formattedLeads = leads.map(l => ({
+      ...l,
+      id: l._id.toString()
+    }));
 
     return res.status(200).json({
       success: true,
-      data: result,
+      data: {
+        leads: formattedLeads,
+        totalCount,
+        page: parseInt(page),
+        limit: parseInt(limit),
+        totalPages: Math.ceil(totalCount / parseInt(limit)) || 1
+      },
     });
   } catch (error) {
     console.error('Get leads error:', error);
@@ -104,7 +127,14 @@ async function updateLead(req, res) {
     const { id } = req.params;
     const updates = req.body;
 
-    const updatedLead = await airtableService.updateLead(id, updates);
+    const lead = await Lead.findByIdAndUpdate(id, updates, { new: true }).lean();
+    
+    if (!lead) {
+      return res.status(404).json({
+        success: false,
+        message: 'Lead not found.',
+      });
+    }
 
     analyticsService.trackEvent('lead_update', {
       leadId: id,
@@ -115,18 +145,10 @@ async function updateLead(req, res) {
     return res.status(200).json({
       success: true,
       message: 'Lead updated successfully.',
-      data: updatedLead,
+      data: { ...lead, id: lead._id.toString() },
     });
   } catch (error) {
     console.error('Update lead error:', error);
-
-    if (error.message && error.message.includes('Could not find')) {
-      return res.status(404).json({
-        success: false,
-        message: 'Lead not found.',
-      });
-    }
-
     return res.status(500).json({
       success: false,
       message: 'Failed to update lead.',
@@ -139,10 +161,19 @@ async function updateLead(req, res) {
  */
 async function getFilterOptions(req, res) {
   try {
-    const options = await airtableService.getFilterOptions();
+    const [universities, courses, statuses] = await Promise.all([
+      Lead.distinct('university'),
+      Lead.distinct('course'),
+      Lead.distinct('status')
+    ]);
+
     return res.status(200).json({
       success: true,
-      data: options,
+      data: {
+        universities: universities.filter(Boolean),
+        courses: courses.filter(Boolean),
+        statuses: statuses.filter(Boolean)
+      },
     });
   } catch (error) {
     console.error('Get filter options error:', error);

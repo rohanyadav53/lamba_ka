@@ -338,22 +338,40 @@ const featuredCourses = [
   { category: 'Technology', name: 'Data Science', university: 'upGrad', fee: '₹3,40,000 total', duration: '11 Months', highlights: ['Python & ML', 'Industry projects', '500+ hiring partners'] },
   { category: 'Technology', name: 'Full Stack Dev', university: 'upGrad', fee: '₹2,99,000 total', duration: '13 Months', highlights: ['MERN stack', 'System design', 'Job guarantee*'] },
   { category: 'Management', name: 'PGDM', university: 'upGrad', fee: '₹2,00,000/year', duration: '12 Months', highlights: ['400+ Hiring Partners', 'Salary Hike Guarantee', 'Weekend Live'] },
+
+  // --- SHARDA UNIVERSITY ONLINE COURSES ---
+  { category: 'Commerce', name: 'PGP Banking & Finance', university: 'Sharda University Online', fee: '₹30,000 total', duration: '11 Months', highlights: ['Banking fundamentals', 'Financial services focus', 'Short-term fast-track'] },
+  { category: 'Technology', name: 'BCA', university: 'Sharda University Online', fee: '₹1,20,000 total', duration: '3 Years', highlights: ['Software development', 'Database administration', 'Web design focus'] },
+  { category: 'Management', name: 'BBA', university: 'Sharda University Online', fee: '₹1,20,000 total', duration: '3 Years', highlights: ['Core business principles', 'Critical thinking', 'Real-world applications'] },
+  { category: 'Arts', name: 'B.A. (Hons.) Political Science', university: 'Sharda University Online', fee: '₹1,05,000 total', duration: '3 Years', highlights: ['Political theory', 'Flexible online learning', 'UGC Entitled degree'] },
+  { category: 'Commerce', name: 'M.Com FinTech', university: 'Sharda University Online', fee: '₹1,40,000 total', duration: '2 Years', highlights: ['Digital finance careers', 'High-growth sector focus', 'Beyond traditional finance'] },
+  { category: 'Commerce', name: 'M.Com Public Accounting', university: 'Sharda University Online', fee: '₹50,000 total', duration: '2 Years', highlights: ['Advanced accounting', 'Flexible online learning', 'UGC Entitled degree'] },
+  { category: 'Management', name: 'MBA Strategic HRM', university: 'Sharda University Online', fee: '₹1,40,000 total', duration: '2 Years', highlights: ['Strategic HR policies', 'Data analysis in HR', 'Business administration'] },
+  { category: 'Technology', name: 'MCA AR & VR', university: 'Sharda University Online', fee: '₹1,20,000 total', duration: '2 Years', highlights: ['Augmented reality', 'Intelligent systems', 'Advanced computing'] },
+  { category: 'Technology', name: 'MCA Data Science', university: 'Sharda University Online', fee: '₹1,20,000 total', duration: '2 Years', highlights: ['Data-driven decisions', 'Complex problem solving', 'Industry-aligned requirements'] },
+  { category: 'Technology', name: 'MCA Computer Science & IT', university: 'Sharda University Online', fee: '₹1,20,000 total', duration: '2 Years', highlights: ['Managerial tech roles', 'Strategic IT management', 'Present-day industry focus'] },
+  { category: 'Management', name: 'MBA Marketing', university: 'Sharda University Online', fee: '₹1,40,000 total', duration: '2 Years', highlights: ['Product lifecycle mgmt', 'Market research', 'Brand management'] },
+  { category: 'Management', name: 'MBA Finance', university: 'Sharda University Online', fee: '₹1,40,000 total', duration: '2 Years', highlights: ['Strategic financial roles', 'Economic data analysis', 'Informed decision-making'] },
+  { category: 'Management', name: 'MBA Data Science & Analytics', university: 'Sharda University Online', fee: '₹1,96,000 total', duration: '2 Years', highlights: ['Data analysis focus', 'Tech-driven business skills', 'Industry-tailored curriculum'] },
+  { category: 'Management', name: 'MBA Healthcare Admin', university: 'Sharda University Online', fee: '₹1,40,000 total', duration: '2 Years', highlights: ['Healthcare administration', 'Hospital management', 'Evolving industry focus'] },
+  { category: 'Management', name: 'MBA HRM', university: 'Sharda University Online', fee: '₹1,40,000 total', duration: '2 Years', highlights: ['Training & recruitment', 'Performance management', 'Core HR skills'] },
 ];
 
-type FilterType = 'All' | 'Management' | 'Technology' | 'Commerce';
-type UniversityType = 'All' | 'Manipal University Jaipur Online' | 'VGU Online' | 'Amity University Online' | 'LPU Online' | 'upGrad';
+type FilterType = 'All' | 'Management' | 'Technology' | 'Commerce' | 'Arts';
+type UniversityType = 'All' | 'Manipal University Jaipur Online' | 'VGU Online' | 'Amity University Online' | 'LPU Online' | 'upGrad' | 'Sharda University Online';
 
-const FILTERS: FilterType[] = ['All', 'Management', 'Technology', 'Commerce'];
-const UNIVERSITIES: UniversityType[] = ['All', 'Manipal University Jaipur Online', 'VGU Online', 'Amity University Online', 'LPU Online', 'upGrad'];
+const FILTERS: FilterType[] = ['All', 'Management', 'Technology', 'Commerce', 'Arts'];
+const UNIVERSITIES: UniversityType[] = ['All', 'Manipal University Jaipur Online', 'VGU Online', 'Amity University Online', 'LPU Online', 'upGrad', 'Sharda University Online'];
 
 function categoryStyle(cat: string): React.CSSProperties {
   if (cat === 'Technology') return { color: '#7c3aed', background: '#ede9fe' };
   if (cat === 'Commerce') return { color: '#0369a1', background: '#e0f2fe' };
+  if (cat === 'Arts') return { color: '#b45309', background: '#fef3c7' };
   return { color: NAVY, background: '#e8edf5' };
 }
 
 // ─── Course Card Component ────────────────────────────────────────────────────
-function CourseCard({ course }: { course: typeof featuredCourses }) {
+function CourseCard({ course }: { course: typeof featuredCourses[number] }) {
   return (
     <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col hover:shadow-md transition-all duration-200" style={{ boxShadow: '0 2px 8px rgba(11,31,58,0.06)' }}>
       <div className="px-5 pt-5 pb-3">

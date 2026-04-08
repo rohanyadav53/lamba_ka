@@ -1,8 +1,8 @@
 // server/controllers/downloadController.js
-// CSV export controller for leads
+// CSV export controller for leads (Admin only, accepts filters)
 
 const { Parser } = require('json2csv');
-const airtableService = require('../services/airtableService');
+const Lead = require('../models/Lead');
 const analyticsService = require('../services/analyticsService');
 
 /**
@@ -13,11 +13,12 @@ async function downloadLeads(req, res) {
   try {
     const { university, course, status } = req.query;
 
-    const leads = await airtableService.getAllLeadsForExport({
-      university,
-      course,
-      status,
-    });
+    const query = {};
+    if (university) query.university = university;
+    if (course) query.course = course;
+    if (status) query.status = status;
+
+    const leads = await Lead.find(query).sort({ createdAt: -1 }).lean();
 
     if (leads.length === 0) {
       return res.status(404).json({
@@ -37,7 +38,7 @@ async function downloadLeads(req, res) {
       { label: 'Status', value: 'status' },
       { label: 'Assigned Counselor', value: 'assignedCounselor' },
       { label: 'Notes', value: 'notes' },
-      { label: 'Created At', value: 'createdAt' },
+      { label: 'Created At', value: (row) => new Date(row.createdAt).toISOString() },
     ];
 
     const parser = new Parser({ fields });
