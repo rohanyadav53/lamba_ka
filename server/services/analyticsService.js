@@ -13,9 +13,11 @@ const MAX_BUFFER_SIZE = 1000;
 const LOG_DIR = path.resolve(__dirname, '..', 'logs');
 const LOG_FILE = path.join(LOG_DIR, 'analytics.jsonl');
 
-// Ensure log directory exists
-if (!fs.existsSync(LOG_DIR)) {
-  fs.mkdirSync(LOG_DIR, { recursive: true });
+// Ensure log directory exists ONLY if not on Vercel
+if (!process.env.VERCEL) {
+  if (!fs.existsSync(LOG_DIR)) {
+    fs.mkdirSync(LOG_DIR, { recursive: true });
+  }
 }
 
 /**
@@ -36,16 +38,18 @@ function trackEvent(eventType, data = {}) {
     eventBuffer.shift(); // Remove oldest event
   }
 
-  // Append to log file (structured JSONL format)
-  try {
-    fs.appendFileSync(LOG_FILE, JSON.stringify(event) + '\n');
-  } catch (err) {
-    console.error('Analytics write error:', err.message);
+  // File system writing ONLY if not on Vercel
+  if (!process.env.VERCEL) {
+    try {
+      fs.appendFileSync(LOG_FILE, JSON.stringify(event) + '\n');
+    } catch (err) {
+      console.error('Analytics write error:', err.message);
+    }
   }
 
-  // Console log in development
-  if (process.env.NODE_ENV !== 'production') {
-    console.log(`📊 [Analytics] ${eventType}:`, JSON.stringify(data));
+  // Ensure visibility in serverless (Vercel Runtime Logs) or local dev
+  if (process.env.VERCEL || process.env.NODE_ENV !== 'production') {
+    console.info(`📊 [Analytics] ${eventType}:`, JSON.stringify(data));
   }
 }
 
