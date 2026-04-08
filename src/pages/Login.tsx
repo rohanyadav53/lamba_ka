@@ -40,7 +40,7 @@ const Login = () => {
 
     setOtpLoading(true);
     try {
-      const res = await api.post('/otp/send', { phone: studentPhone });
+      const res = await api.post('/api/otp/send', { phone: studentPhone });
       toast.success(res.message || 'OTP sent to your phone');
       setOtpStep('verify');
     } catch (err: any) {
@@ -59,7 +59,7 @@ const Login = () => {
 
     setOtpLoading(true);
     try {
-      const res = await api.post<{ token: string; user: any }>('/otp/verify', {
+      const res = await api.post<{ token: string; user: any }>('/api/otp/verify', {
         phone: studentPhone,
         otp,
       });
@@ -85,7 +85,7 @@ const Login = () => {
 
     setAdminLoading(true);
     try {
-      const res = await api.post<{ token: string; user: any }>('/admin/login', {
+      const res = await api.post<{ token: string; user: any }>('/api/admin/login', {
         email: adminEmail,
         password: adminPassword,
       });

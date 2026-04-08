@@ -55,7 +55,7 @@ const AdminDashboard = () => {
   const fetchLeads = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await api.get<LeadsResponse>('/leads', {
+      const res = await api.get<LeadsResponse>('/api/leads', {
         page: String(page),
         limit: String(limit),
         ...(searchQuery && { search: searchQuery }),
@@ -84,7 +84,7 @@ const AdminDashboard = () => {
   // ── Fetch Filter Options ──────────────────────────────────────────────────
   const fetchFilterOptions = useCallback(async () => {
     try {
-      const res = await api.get<FilterOptions>('/leads/filters');
+      const res = await api.get<FilterOptions>('/api/leads/filters');
       if (res.data) setFilterOptions(res.data);
     } catch {
       // Silently fail; filters will just be empty
@@ -108,7 +108,7 @@ const AdminDashboard = () => {
   const handleDownload = async () => {
     setDownloading(true);
     try {
-      await api.get('/leads/download', {
+      await api.get('/api/leads/download', {
         ...(filterUniversity && { university: filterUniversity }),
         ...(filterCourse && { course: filterCourse }),
         ...(filterStatus && { status: filterStatus }),
@@ -126,7 +126,7 @@ const AdminDashboard = () => {
     if (!editingLead) return;
     setSaving(true);
     try {
-      await api.put(`/lead/${editingLead.id}`, {
+      await api.put(`/api/lead/${editingLead.id}`, {
         status: editStatus,
         notes: editNotes,
         assignedCounselor: editCounselor,
