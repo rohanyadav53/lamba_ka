@@ -1,5 +1,10 @@
+// server/config/db.js
 const mongoose = require('mongoose');
 const config = require('./env');
+
+// Strict Query and Buffer configuration for Serverless environments
+mongoose.set('strictQuery', false);
+mongoose.set('bufferCommands', true);
 
 /**
  * Global is used here to maintain a cached connection across hot reloads
@@ -19,7 +24,9 @@ async function connectDB() {
 
   if (!cached.promise) {
     const opts = {
-      bufferCommands: false, // Disable Mongoose buffering
+      bufferCommands: true,
+      serverSelectionTimeoutMS: 10000,
+      socketTimeoutMS: 45000,
     };
 
     cached.promise = mongoose.connect(config.MONGO_URI, opts).then((mongoose) => {
